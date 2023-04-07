@@ -17,19 +17,19 @@ const preguntas = [
         },
         {
             value: '3',
-            name: `${'0.'.green} crear equipo`
+            name: `${'3.'.green} crear equipo`
         },
         {
             value: '4',
-            name: `${'0.'.green} Equipos creados`
+            name: `${'4.'.green} Equipos creados`
         },
         {
             value: '5',
-            name: `${'0.'.green} Eliminar equipos`
+            name: `${'5.'.green} Eliminar equipos`
         },
         {
             value: '6',
-            name: `${'0.'.green} Salir`
+            name: `${'6.'.green} Salir`
         }
 
         ]
@@ -45,7 +45,7 @@ const inquirerMenu = async() => {
     console.log('   Seleccione una opcion '.white);
     console.log('============================\n'.green);
 
-   const {opcion} = await inquirer.prompt(Preguntas)
+   const {opcion} = await inquirer.prompt(preguntas)
 
    return opcion;
 }
