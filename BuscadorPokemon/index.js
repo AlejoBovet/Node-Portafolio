@@ -1,8 +1,10 @@
 //const Busquedas = require('./models/busquedas');
-const { inquirerMenu,Pausa} = require('./helpers/inquirer');
+const { inquirerMenu,Pausa,leerInput} = require('./helpers/inquirer');
+const Busquedas = require('./models/Busqueda');
 
 const main  = async () => {
-    //const busqueda = new Busquedas();
+    
+    const busqueda = new Busquedas();
     let opt;
 
     do{
@@ -12,7 +14,16 @@ const main  = async () => {
         switch(opt){
 
             case 1:
-                // Mostrar mensaje
+
+            const valor = await leerInput('pokemon: ');
+            //console.log(pokemon);
+            const poket = await busqueda.pokemon(valor);
+                
+            console.log('\nPokemones\n'.green);
+            console.log('Numero',poket.id);
+            console.log('Nombre',poket.nombre);
+
+
                 
             
             break;
