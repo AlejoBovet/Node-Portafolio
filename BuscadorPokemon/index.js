@@ -1,5 +1,5 @@
 //const Busquedas = require('./models/busquedas');
-const { inquirerMenu} = require('./helpers/inquirer');
+const { inquirerMenu,Pausa} = require('./helpers/inquirer');
 
 const main  = async () => {
     //const busqueda = new Busquedas();
@@ -31,9 +31,9 @@ const main  = async () => {
 
         }
 
-        //if( opt !== 0 ) await Pausa();
+        if( opt !== 6) await Pausa();
 
-    }while (opt !== 0)
+    }while (opt !== 6)
 }
 
 main();
