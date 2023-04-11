@@ -18,6 +18,8 @@ const main  = async () => {
             const valor = await leerInput('pokemon: ');
             //console.log(pokemon);
             const poket = await busqueda.pokemon(valor);
+
+            //const poketsel = poket.find(p => p.id === order);
                 
             console.log('\nPokemones\n'.green);
             console.log('Numero',poket.id);
