@@ -9,7 +9,7 @@ const preguntas = [
         choices: [
         {
             value: 1,
-            name: `${'1.'.green} Buscar pokemon`
+            name: `${'1.'.green} Buscar pokemon`,
         },
         {
             value: 2,

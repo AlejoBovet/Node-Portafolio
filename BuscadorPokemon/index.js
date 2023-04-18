@@ -1,4 +1,4 @@
-//const Busquedas = require('./models/busquedas');
+require('colors');
 const { inquirerMenu,Pausa,leerInput} = require('./helpers/inquirer');
 const Busquedas = require('./models/Busqueda');
 
@@ -15,23 +15,25 @@ const main  = async () => {
 
             case 1:
 
+            console.log(`Puede buscar por nombre o id`.blue);
+            console.log(`El id esta ordenado por Pokedex nacional`.green);
             const valor = await leerInput('pokemon: ');
-            //console.log(pokemon);
+            
             const poket = await busqueda.pokemon(valor);
 
-            //const poketsel = poket.find(p => p.id === order);
-                
-            console.log('\nPokemones\n'.green);
-            console.log('Numero',poket.id);
-            console.log('Nombre',poket.nombre);
+            busqueda.agregarHistorial( valor );
 
 
                 
-            
             break;
 
             case 2:
-                // Mostrar mensaje
+            
+            busqueda.historial.forEach((poke,i) =>{
+                const idx =`${i+1}`.green;
+                console.log(`${idx} ${poke}`);
+            })
+            
             break;
 
             case 3:

@@ -1,33 +1,18 @@
 const axios = require('axios');
+const fs = require('fs');
 
 class Busquedas {
-    historial = ['aaaa','bbbb','cccc'];
-    db = './db/database.json';
+    historial = [];
+    dbPath = './db/database.json';
 
     constructor(){
 
+        this.leerDB();
+
     }
-
-/*
-
-    async pokemon(poke = ''){
-        // peticion http
-
-        try{
-            const resp = await axios.get(`https://pokeapi.co/api/v2/pokemon/${poke}/`);
-            console.log(resp.data);
-        }catch(error){
-            return [];
-        }
-    }
-
-*/
-
-
     
     async pokemon(poke = ''){
-        // peticion http
-        //console.log(lugar);
+        
         
         try{
             const istance = axios.create({
@@ -36,14 +21,32 @@ class Busquedas {
             }) ;
 
             const resp = await istance.get(`${ poke }/`);
-            const test = resp;
-            console.log(test);
-            //return resp.data.map()//(poke => ({
-                
-                //id: poke.order,
-                //nombre:poke.name,
-                //url: poke.url,
-            //}))
+            const search =resp.data;
+            if(search){
+                console.log('Nombre: ',search.name);
+                console.log('');
+                console.log('id: ',search.order);
+                console.log('');
+                console.log('Tipo: ',search.types[0].type.name);
+                console.log('');
+                console.log('Peso: ',search.weight);
+                console.log('');
+                console.log('Altura: ',search.height);
+                console.log('');
+                console.log('Pasivas: ');
+                search.abilities.forEach((element,index) => {
+                    if(index < 10){
+                        console.log(element.ability.name);
+                    }});
+                console.log('');
+                console.log('Skills: ');
+                search.moves.forEach((element,index) => {
+                    if(index < 10){
+                        console.log('\n',element.move.name);
+                    }
+                }); 
+            }
+          
             
         }
         
@@ -51,7 +54,47 @@ class Busquedas {
             return [];
         }
 
-        //return []; // retornar los lugares que coincidan
+        
+    }
+
+    agregarHistorial(poke=''){
+
+        //Prevenir duplicado 
+
+        if(this.historial.includes(poke.toLocaleLowerCase())){
+            return;
+        }
+
+        this.historial = this.historial.splice(0,10);
+
+        this.historial.unshift(poke.toLocaleLowerCase());
+
+        
+
+        this.guardarDB();
+
+    }
+
+    guardarDB(){
+
+        const payload ={
+            historial:this.historial
+        };
+
+        fs.writeFileSync(this.dbPath, JSON.stringify(payload));
+
+    }
+
+    leerDB(){
+
+        //debe de existir...
+        if(fs.existsSync(this.dbPath)) return;
+
+        const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'});
+        const data = JSON.dewdewdwed(info);
+
+        this.historial = data.historial;
+
     }
     
     
