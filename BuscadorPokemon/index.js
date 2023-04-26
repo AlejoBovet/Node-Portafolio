@@ -1,5 +1,5 @@
 require('colors');
-const { inquirerMenu,Pausa,leerInput} = require('./helpers/inquirer');
+const { inquirerMenu,Pausa,leerInput,inquirertems} = require('./helpers/inquirer');
 const Busquedas = require('./models/Busqueda');
 
 const main  = async () => {
@@ -20,8 +20,10 @@ const main  = async () => {
             const valor = await leerInput('pokemon: ');
             
             const poket = await busqueda.pokemon(valor);
+            
+            
 
-            busqueda.agregarHistorial( valor );
+            //busqueda.agregarHistorial( valor );
 
 
                 
@@ -37,7 +39,49 @@ const main  = async () => {
             break;
 
             case 3:
-                // Mostrar mensaje
+             
+            const question = await leerInput('¿Desea crear equipo pokemon? (s/n):');
+            let teams = [];
+            
+            while(question === 's'){
+                
+                
+                //const nombre = await leerInput('Nombre del equipo: ');
+                const Searchpokemon = await  leerInput('Nombre del pokemon: ');
+                const pokemon = await busqueda.poketeam(Searchpokemon);
+                //console.log(pokemon.name);
+                teams.push(pokemon.name);
+                console.log(teams);
+                
+
+                const question2 = await leerInput('¿Desea agregar otro pokemon? (s/n):');
+                if(question2 === 'n'){
+                    break;
+
+               /*  const question2 = await leerInput('¿Desea agregar otro pokemon? (s/n):');
+                while(question2 === 's'){
+
+                    const Searchpokemon = await  leerInput('Nombre del pokemon: ');
+                    const pokemon = await busqueda.poketeam(Searchpokemon);
+                    busqueda.equipo(pokemon.name);
+                    console.log(busqueda.Equipos);
+                    console.log('pokemon agregado');
+                    
+
+
+                } */
+
+            
+
+                
+                
+            }}
+
+            busqueda.equipo(teams);
+                
+
+
+
             break;
 
             case 4:

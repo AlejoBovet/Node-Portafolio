@@ -90,7 +90,8 @@ const leerInput = async( message) => {
 module.exports = {
     Pausa,
     inquirerMenu,
-    leerInput
+    leerInput,
+  
 }
 
 

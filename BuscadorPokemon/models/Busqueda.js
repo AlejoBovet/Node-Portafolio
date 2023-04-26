@@ -1,9 +1,12 @@
 const axios = require('axios');
+const { Console } = require('console');
 const fs = require('fs');
 
 class Busquedas {
     historial = [];
+    Equipos = [];
     dbPath = './db/database.json';
+
 
     constructor(){
 
@@ -13,8 +16,11 @@ class Busquedas {
     
     async pokemon(poke = ''){
         
+    
         
         try{
+
+        
             const istance = axios.create({
                 baseURL: `https://pokeapi.co/api/v2/pokemon/`
                 
@@ -49,13 +55,58 @@ class Busquedas {
           
             
         }
-        
         catch(error){
+            console.log('No se encontro el pokemon');
+            console.log('intente de nuevo');
             return [];
         }
+            
+    
+    }
 
         
+
+        
+    
+
+
+
+    async poketeam(poke = ''){
+
+        try{
+            const istance = axios.create({
+                baseURL: `https://pokeapi.co/api/v2/pokemon/`
+            });
+
+            const resp = await istance.get(`${ poke }`);
+            const extract = resp.data;
+            
+            return{
+                name: extract.name,
+            }
+
+
+
+        }
+        catch(error){
+            console.log('No se encontro el pokemon');
+            return [];
+        }
     }
+
+
+    async equipo(miembros){
+
+        
+        this.Equipos.push(miembros);
+
+        console.log(this.Equipos);
+
+    }
+    
+
+
+
 
     agregarHistorial(poke=''){
 
