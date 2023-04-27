@@ -1,11 +1,18 @@
 const axios = require('axios');
-const { Console } = require('console');
 const fs = require('fs');
+
+const { Console } = require('console');
+/* const {Team} = require('./Teams');  */
+
+
 
 class Busquedas {
     historial = [];
     Equipos = [];
     dbPath = './db/database.json';
+    _listado = {};
+    
+
 
 
     constructor(){
@@ -51,7 +58,15 @@ class Busquedas {
                         console.log('\n',element.move.name);
                     }
                 }); 
+
+                
+
             }
+            return {
+                name: search.name,
+            }
+
+            
           
             
         }
@@ -102,7 +117,18 @@ class Busquedas {
 
         console.log(this.Equipos);
 
+        this.guardarDB()
+
     }
+
+  /*   async SetTeam(list){
+
+        const equipo = new Team(list);
+
+        this._listado[equipo.Id] = equipo;
+
+
+    } */
     
 
 
@@ -145,6 +171,13 @@ class Busquedas {
         const data = JSON.dewdewdwed(info);
 
         this.historial = data.historial;
+        //this.Equipos = data.Equipos;
+
+    }
+
+    eliminarenDB(){
+
+
 
     }
     

@@ -23,7 +23,7 @@ const main  = async () => {
             
             
 
-            //busqueda.agregarHistorial( valor );
+            busqueda.agregarHistorial( poket.name );
 
 
                 
@@ -56,24 +56,7 @@ const main  = async () => {
 
                 const question2 = await leerInput('¿Desea agregar otro pokemon? (s/n):');
                 if(question2 === 'n'){
-                    break;
-
-               /*  const question2 = await leerInput('¿Desea agregar otro pokemon? (s/n):');
-                while(question2 === 's'){
-
-                    const Searchpokemon = await  leerInput('Nombre del pokemon: ');
-                    const pokemon = await busqueda.poketeam(Searchpokemon);
-                    busqueda.equipo(pokemon.name);
-                    console.log(busqueda.Equipos);
-                    console.log('pokemon agregado');
-                    
-
-
-                } */
-
-            
-
-                
+                    break        
                 
             }}
 
@@ -85,8 +68,17 @@ const main  = async () => {
             break;
 
             case 4:
-                // Mostrar mensaje
+                busqueda.Equipos.forEach((poke,i) =>{
+                    const idx =`${i+1}`.green;
+                    console.log(`${idx} ${poke}`);
+                })
             break;  
+
+            case 5:
+
+            
+             
+            break;
 
         }
 
