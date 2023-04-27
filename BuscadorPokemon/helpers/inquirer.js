@@ -1,6 +1,8 @@
 const inquirer = require('inquirer');
 require('colors');
 
+const teams = require('../models/Teams');
+
 const preguntas = [
     {
         type: 'list',
@@ -87,10 +89,53 @@ const leerInput = async( message) => {
     return desc;
 }
 
+const listadoEquipoBorrar = async(Equipos= []) => {
+
+    const choices = Equipos.map((team,i) => {
+
+        const idx = `${i + 1}.`.green;
+
+        return{
+            value:team.Id,
+            name:`${idx} ${team.List}`
+        }
+
+    });
+
+    const Preguntas = [
+        {
+            type:'list',
+            name: 'id',
+            message:'borrar',
+            choices
+        }
+    ]
+
+    const {id} = await inquirer.prompt(Preguntas);
+    return id;
+
+}
+
+const confirmar = async(message) => {
+
+    const question = [
+        {
+            type: 'confirm',
+            name: 'ok',
+            message
+        }
+    ];
+
+    const {ok} = await inquirer.prompt(question);
+    return ok;
+}
+
 module.exports = {
     Pausa,
     inquirerMenu,
     leerInput,
+    listadoEquipoBorrar,
+    confirmar
   
 }
 

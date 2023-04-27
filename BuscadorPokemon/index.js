@@ -1,5 +1,5 @@
 require('colors');
-const { inquirerMenu,Pausa,leerInput,inquirertems} = require('./helpers/inquirer');
+const { inquirerMenu,Pausa,leerInput,listadoEquipoBorrar,confirmar} = require('./helpers/inquirer');
 const Busquedas = require('./models/Busqueda');
 
 const main  = async () => {
@@ -60,7 +60,8 @@ const main  = async () => {
                 
             }}
 
-            busqueda.equipo(teams);
+            busqueda.SetTeam(teams);
+            busqueda.guardarDB2(busqueda.listadoArr);
                 
 
 
@@ -68,15 +69,24 @@ const main  = async () => {
             break;
 
             case 4:
-                busqueda.Equipos.forEach((poke,i) =>{
-                    const idx =`${i+1}`.green;
-                    console.log(`${idx} ${poke}`);
-                })
+
+                busqueda.listadoCompleto();
+                
+
+             
             break;  
 
             case 5:
 
-            
+            const id = await listadoEquipoBorrar(busqueda.listadoArr);
+            const ok = await confirmar('Esta seguro que desea borrar');
+            if(ok){
+                busqueda.borrarTeam(id);
+                console.log('Equipo borrado')
+            }
+
+
+
              
             break;
 

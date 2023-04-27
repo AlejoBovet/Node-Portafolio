@@ -2,7 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 
 const { Console } = require('console');
-/* const {Team} = require('./Teams');  */
+const {Team} = require('./Teams');  
 
 
 
@@ -11,6 +11,19 @@ class Busquedas {
     Equipos = [];
     dbPath = './db/database.json';
     _listado = {};
+
+
+    get listadoArr(){
+
+        const listado = [];
+        Object.keys(this._listado).forEach(key => {
+            const team = this._listado[key];
+            listado.push( team );
+        });
+
+        return listado;
+
+    }
     
 
 
@@ -117,18 +130,37 @@ class Busquedas {
 
         console.log(this.Equipos);
 
-        this.guardarDB()
+        //this.guardarDB()
 
     }
 
-  /*   async SetTeam(list){
+    async SetTeam(list){
 
         const equipo = new Team(list);
 
         this._listado[equipo.Id] = equipo;
 
 
-    } */
+    } 
+
+    listadoCompleto() {
+
+        this.listadoArr.forEach( (team, i) => {
+
+            const idx = `${i + 1}`.green;
+            const {List} = team; 
+            console.log(`${idx} ${ List }`);
+
+        });
+        
+
+    }
+
+    borrarTeam( id = ''){
+        if (this._listado[id]) {
+            delete this._listado[id];
+        }
+    }
     
 
 
@@ -159,25 +191,27 @@ class Busquedas {
         };
 
         fs.writeFileSync(this.dbPath, JSON.stringify(payload));
-
     }
+
+    guardarDB2(data){
+
+        
+    
+        fs.writeFileSync(this.dbPath, JSON.stringify(data));
+    }
+
+
 
     leerDB(){
 
-        //debe de existir...
+        
         if(fs.existsSync(this.dbPath)) return;
 
         const info = fs.readFileSync(this.dbPath, {encoding: 'utf-8'});
         const data = JSON.dewdewdwed(info);
 
         this.historial = data.historial;
-        //this.Equipos = data.Equipos;
-
-    }
-
-    eliminarenDB(){
-
-
+        this.Equipos = data.Equipos;
 
     }
     
