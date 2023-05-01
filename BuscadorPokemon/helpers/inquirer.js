@@ -1,7 +1,6 @@
 const inquirer = require('inquirer');
 require('colors');
 
-const teams = require('../models/Teams');
 
 const preguntas = [
     {
@@ -89,6 +88,48 @@ const leerInput = async( message) => {
     return desc;
 }
 
+const CrearEquipo = async( message) => {
+
+    const question = [
+
+        {
+            type: 'confirm',
+            name: 'desc',
+            message: '¿Desea crear un equipo?:',
+                
+                
+            
+        }
+
+    ];
+
+
+    const {desc} = await inquirer.prompt(question);
+    return desc;
+}
+
+
+const ConfirmarEquipo = async( message) => {
+
+    const question = [
+
+        {
+            type: 'confirm',
+            name: 'desc',
+            message: '¿Desea agregar otro pokemon?:',
+                
+                
+            
+        }
+
+    ];
+
+
+    const {desc} = await inquirer.prompt(question);
+    return desc;
+}
+
+
 const listadoEquipoBorrar = async(Equipos= []) => {
 
     const choices = Equipos.map((team,i) => {
@@ -135,7 +176,9 @@ module.exports = {
     inquirerMenu,
     leerInput,
     listadoEquipoBorrar,
-    confirmar
+    confirmar,
+    CrearEquipo,
+    ConfirmarEquipo
   
 }
 

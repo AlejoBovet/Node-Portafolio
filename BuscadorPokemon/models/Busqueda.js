@@ -1,7 +1,5 @@
 const axios = require('axios');
 const fs = require('fs');
-
-const { Console } = require('console');
 const {Team} = require('./Teams');  
 
 
@@ -109,8 +107,13 @@ class Busquedas {
             const resp = await istance.get(`${ poke }`);
             const extract = resp.data;
             
-            return{
-                name: extract.name,
+            if(extract.name !== undefined){
+                return extract.name
+
+            }else{
+                console.log('No se encontro el pokemon');
+                
+                
             }
 
 
@@ -123,18 +126,18 @@ class Busquedas {
     }
 
 
-    async equipo(miembros){
+    equipo(miembros){
 
         
         this.Equipos.push(miembros);
 
         console.log(this.Equipos);
 
-        //this.guardarDB()
+        
 
     }
 
-    async SetTeam(list){
+    SetTeam(list){
 
         const equipo = new Team(list);
 

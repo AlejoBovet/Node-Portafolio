@@ -1,5 +1,5 @@
 require('colors');
-const { inquirerMenu,Pausa,leerInput,listadoEquipoBorrar,confirmar} = require('./helpers/inquirer');
+const { inquirerMenu,Pausa,leerInput,listadoEquipoBorrar,confirmar,ConfirmarEquipo, CrearEquipo} = require('./helpers/inquirer');
 const Busquedas = require('./models/Busqueda');
 
 const main  = async () => {
@@ -40,28 +40,32 @@ const main  = async () => {
 
             case 3:
              
-            const question = await leerInput('¿Desea crear equipo pokemon? (s/n):');
+            const question = await CrearEquipo();
             let teams = [];
             
-            while(question === 's'){
+            while(question){
                 
                 
-                //const nombre = await leerInput('Nombre del equipo: ');
+                
                 const Searchpokemon = await  leerInput('Nombre del pokemon: ');
                 const pokemon = await busqueda.poketeam(Searchpokemon);
-                //console.log(pokemon.name);
-                teams.push(pokemon.name);
-                console.log(teams);
+                if(pokemon !== ''){
+                    
+                    teams.push(pokemon);
+                    console.log(teams);
+                    busqueda.SetTeam(teams);
+                    busqueda.guardarDB2(busqueda.listadoArr);
+                }else{
+                    console.log('No se encontro el pokemon');
+                }
                 
-
-                const question2 = await leerInput('¿Desea agregar otro pokemon? (s/n):');
-                if(question2 === 'n'){
+                const question2 = await ConfirmarEquipo();
+                if(question2 === false){
                     break        
                 
             }}
 
-            busqueda.SetTeam(teams);
-            busqueda.guardarDB2(busqueda.listadoArr);
+            
                 
 
 
